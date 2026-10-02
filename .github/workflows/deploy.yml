@@ -1,0 +1,69 @@
+# Builds the site and deploys it to GitHub Pages on every push to main.
+#   1. MyST (the engine behind Jupyter Book 2) renders the notebooks, with their
+#      saved outputs, into a static website.
+#   2. JupyterLite builds a copy of the notebooks that runs Python in the
+#      reader's browser, served from /lite on the same site.
+name: Build and deploy site
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    env:
+      # The site is served from https://<user>.github.io/<repo>/.
+      # If the repo is named <user>.github.io, set BASE_URL to '' and drop
+      # "/${{ github.event.repository.name }}" from SITE_URL.
+      BASE_URL: /${{ github.event.repository.name }}
+      SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Pages
+        uses: actions/configure-pages@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fill in repository links
+        run: |
+          sed -i "s|__SITE_URL__|${SITE_URL}|g; s|__REPO__|${{ github.repository }}|g" myst.yml index.md
+
+      - name: Build the website
+        run: |
+          npm install -g mystmd
+          myst build --html
+
+      - name: Build the in-browser notebooks
+        run: |
+          pip install jupyterlite-core jupyterlite-pyodide-kernel jupyter_server jupyterlab_widgets
+          jupyter lite build --contents notebooks --output-dir _build/html/lite
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_build/html
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

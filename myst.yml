@@ -1,0 +1,21 @@
+# Site configuration for MyST / Jupyter Book 2.
+# The placeholder links below (the ones in double underscores) are filled in
+# automatically by the GitHub Actions workflow, so you don't need to edit them.
+version: 1
+project:
+  title: Adjoints and Backprop
+  authors:
+    - name: David Cavender
+  github: https://github.com/__REPO__
+  toc:
+    - file: index.md
+    - file: notebooks/adjoints_part1.ipynb
+    - file: notebooks/adjoints_part2.ipynb
+    - file: notebooks/adjoints_part3.ipynb
+site:
+  template: book-theme
+  options:
+    logo_text: Adjoints and Backprop
+  actions:
+    - title: Run in your browser
+      url: __SITE_URL__/lite/lab/index.html
