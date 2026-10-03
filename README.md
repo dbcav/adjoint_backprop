@@ -1,6 +1,6 @@
 # Adjoints and Backprop
 
-Source for the website version of the *Adjoints and Backprop* notebooks. Every push to `main` rebuilds the site and publishes it to GitHub Pages at `https://<your-username>.github.io/<repo-name>/`.
+Source for the website version of the *Adjoints and Backprop* notebooks -- https://dbcav.github.io/adjoint_backprop/
 
 ## What's in here
 
