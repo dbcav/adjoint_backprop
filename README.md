@@ -1,6 +1,10 @@
 # Adjoints and Backprop
 
+<<<<<<< HEAD
 **Read it here: https://dbcav.github.io/adjoint_backprop/**
+=======
+Source for the website version of the *Adjoints and Backprop* notebooks -- https://dbcav.github.io/adjoint_backprop/
+>>>>>>> cda5935c32dad3933e86b05f8e73c19bc1d1f88d
 
 A four-part series of interactive notebooks on adjoint methods, backpropagation, and why
 they turn out to be the same algorithm. Everything is implemented from scratch in NumPy
