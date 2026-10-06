@@ -6,12 +6,15 @@ project:
   title: Adjoints and Backprop
   authors:
     - name: David Cavender
+      # Remove the # from the next line and put in your address to show it on the site.
+      email: dcavende@ucsd.edu
   github: https://github.com/__REPO__
   toc:
     - file: index.md
     - file: notebooks/adjoints_part1.ipynb
     - file: notebooks/adjoints_part2.ipynb
     - file: notebooks/adjoints_part3.ipynb
+    - file: notebooks/adjoints_part4.ipynb
 site:
   template: book-theme
   options:
